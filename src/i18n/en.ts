@@ -7,6 +7,10 @@ export const en: Translations = {
 
   passportLabel: 'Indonesian Passport',
   homeCountry: 'Indonesia (Home)',
+  lastUpdated: (iso) => {
+    const d = new Date(`${iso}T00:00:00`);
+    return `Updated ${d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+  },
 
   allContinents: 'All',
   continents: {

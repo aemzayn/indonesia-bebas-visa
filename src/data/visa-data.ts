@@ -1,3 +1,6 @@
+/** ISO 8601 date — update this whenever visa-data.ts or monthly-picks.ts changes */
+export const LAST_UPDATED = '2026-04-21';
+
 export type VisaCategory = 'visa-free' | 'visa-on-arrival' | 'e-visa';
 export type Continent =
   | 'Southeast Asia'

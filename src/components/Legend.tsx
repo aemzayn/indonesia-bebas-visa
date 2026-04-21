@@ -1,4 +1,4 @@
-import { CATEGORY_COLORS, type VisaCategory } from '../data/visa-data';
+import { CATEGORY_COLORS, LAST_UPDATED, type VisaCategory } from '../data/visa-data';
 import { useI18n } from '../i18n';
 
 const categories: VisaCategory[] = ['visa-free', 'visa-on-arrival', 'e-visa'];
@@ -24,6 +24,9 @@ export default function Legend() {
         <span className="inline-block w-2.5 h-2.5 rounded-sm flex-shrink-0 bg-white" />
         <span className="text-xs text-white/90">{t.homeCountry}</span>
       </div>
+      <p className="text-[10px] text-white/30 pt-1 border-t border-white/10 mt-0.5">
+        {t.lastUpdated(LAST_UPDATED)}
+      </p>
     </div>
   );
 }

@@ -13,6 +13,7 @@ export interface Translations {
   // Legend
   passportLabel: string;
   homeCountry: string;
+  lastUpdated: (isoDate: string) => string;
 
   // Continent filter
   allContinents: string;

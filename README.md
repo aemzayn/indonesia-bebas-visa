@@ -70,6 +70,22 @@ docker push your-registry/bebas-visa:prod
 All visa information is stored in **two TypeScript files** — no database, no backend.  
 Changes take effect after rebuilding the image.
 
+> **Every time you add, remove, or change a country, you must also update `LAST_UPDATED`.**  
+> This date is shown on the map so visitors know how fresh the data is.
+
+### Step 0 — Always update the timestamp first
+
+Open **`src/data/visa-data.ts`** and update the date at the top of the file to today's date in `YYYY-MM-DD` format:
+
+```ts
+// src/data/visa-data.ts
+export const LAST_UPDATED = '2026-04-21'; // ← change this
+```
+
+Do this **before** committing any data change. The date is displayed in the map legend and switches language automatically (e.g. "Updated Apr 21, 2026" / "Diperbarui 21 Apr 2026").
+
+---
+
 ### File 1 — Country visa list
 
 **`src/data/visa-data.ts`** — the source of truth for which countries appear on the map.
@@ -90,9 +106,10 @@ Each entry in the `visaData` array looks like this:
 
 #### Adding a new country
 
-1. Find the country's **ISO 3166-1 numeric code** at [iso.org](https://www.iso.org/obp/ui/#search) or [Wikipedia](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
-2. Add a new object to the `visaData` array.
-3. Choose the correct `continent` — valid values are:
+1. **Update `LAST_UPDATED`** (see Step 0 above).
+2. Find the country's **ISO 3166-1 numeric code** at [iso.org](https://www.iso.org/obp/ui/#search) or [Wikipedia](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes).
+3. Add a new object to the `visaData` array.
+4. Choose the correct `continent` — valid values are:
 
    ```
    'Southeast Asia' | 'East Asia' | 'South Asia' | 'Central Asia'
@@ -101,7 +118,8 @@ Each entry in the `visaData` array looks like this:
 
 #### Changing a category
 
-Find the entry by `name` or `iso2` and update `category`, `duration`, or `notes`.
+1. **Update `LAST_UPDATED`** (see Step 0 above).
+2. Find the entry by `name` or `iso2` and update `category`, `duration`, or `notes`.
 
 ```ts
 // Before
@@ -113,7 +131,8 @@ Find the entry by `name` or `iso2` and update `category`, `duration`, or `notes`
 
 #### Removing a country
 
-Delete its object from the array. The country will no longer appear on the map.
+1. **Update `LAST_UPDATED`** (see Step 0 above).
+2. Delete the country's object from the `visaData` array. It will no longer appear on the map.
 
 > **Note:** Countries with `isoNumeric: 0` (e.g. Kosovo) are included in the data for completeness but will not render on the globe because world-atlas does not contain them.
 
@@ -128,7 +147,8 @@ The picks are a fixed 12 × 3 grid (12 months, 3 picks per month). The structure
 
 #### Changing a pick's country
 
-1. In `src/data/monthly-picks.ts`, update the entry for the target month:
+1. **Update `LAST_UPDATED`** in `src/data/visa-data.ts` (see Step 0 above).
+2. In `src/data/monthly-picks.ts`, update the entry for the target month:
 
    ```ts
    // Month index 0 = January
@@ -139,14 +159,14 @@ The picks are a fixed 12 × 3 grid (12 months, 3 picks per month). The structure
    ],
    ```
 
-2. In `src/i18n/en.ts`, update the matching `highlight` and `reason` at the same index:
+3. In `src/i18n/en.ts`, update the matching `highlight` and `reason` at the same index:
 
    ```ts
    // monthlyPicks[0] = January, picks[1] = second pick
    { highlight: 'Perfect Weather', reason: 'Driest month of the year ...' }
    ```
 
-3. Do the same in `src/i18n/id.ts` (Indonesian translation):
+4. Do the same in `src/i18n/id.ts` (Indonesian translation):
 
    ```ts
    { highlight: 'Cuaca Sempurna', reason: 'Bulan paling kering ...' }
