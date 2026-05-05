@@ -1,6 +1,6 @@
 services:
   app:
-    image: bebas-visa:prod
+    image: ghcr.io/aemzayn/bebas-visa:prod
     container_name: bebas-visa
     ports:
       - "8080:80"
@@ -11,3 +11,17 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+    deploy:
+      replicas: 3
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=300
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_INCLUDE_STOPPED=false
+    command: bebas-visa

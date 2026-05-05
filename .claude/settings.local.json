@@ -7,7 +7,8 @@
       "Bash(npx tsc *)",
       "Bash(npm run *)",
       "Bash(curl -s http://localhost:5173)",
-      "Bash(chmod +x /d/Projects/indonesia-bebas-visa/build-prod.sh)"
+      "Bash(chmod +x /d/Projects/indonesia-bebas-visa/build-prod.sh)",
+      "Bash(chmod +x /Users/ahmad/Desktop/code/indonesia-bebas-visa/build-push.sh)"
     ]
   }
 }
